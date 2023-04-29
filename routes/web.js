@@ -14,13 +14,13 @@ function initRoutes(app) {
 
     app.get("/", homeController().index)
 
-    app.get("/cart",cartController().cart)
+    app.get("/cart",cartController().index)
     
     app.get("/login", authController().login)
     
     app.get("/register", authController().register)
 
-    app.post('update-cart', cartController().update)
+    app.post('/update-cart', cartController().update)
 
 }
 

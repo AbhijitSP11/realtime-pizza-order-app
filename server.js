@@ -56,6 +56,14 @@ app.use(flash())
 /* Assets */ 
 app.use(express.static('public'))
 
+/* Global Middleware*/
+
+app.use((req, res, next)=>{
+  res.locals.session = req.session
+  next()
+})
+
+
 /* Set template engine */ 
 
 app.use(expressLayout)
