@@ -21,15 +21,15 @@ var addToCart = document.querySelectorAll('.add-to-cart');
 var cartCounter = document.querySelectorAll('#cartCounter');
 function updateCart(pizza) {
   axios__WEBPACK_IMPORTED_MODULE_1__["default"].post('/update-cart', pizza).then(function (res) {
-    console.log(res);
+    console.log(res, 'checking response');
     cartCounter.innerText = res.data.totalQty;
     new (noty__WEBPACK_IMPORTED_MODULE_0___default())({
       type: 'success',
       timeout: 1000,
-      text: 'Pizza added to your cart'
+      text: 'Item added to cart'
     }).show();
   })["catch"](function (err) {
-    return new (noty__WEBPACK_IMPORTED_MODULE_0___default())({
+    new (noty__WEBPACK_IMPORTED_MODULE_0___default())({
       type: 'error',
       timeout: 1000,
       text: 'Something went wrong'
@@ -39,6 +39,7 @@ function updateCart(pizza) {
 addToCart.forEach(function (btn) {
   btn.addEventListener('click', function (e) {
     var pizza = JSON.parse(btn.dataset.pizza);
+    console.log(pizza);
     updateCart(pizza);
   });
 });

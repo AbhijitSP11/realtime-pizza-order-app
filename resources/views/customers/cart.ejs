@@ -13,8 +13,8 @@
                     <h1> <%= pizza.item.image %> </h1>
                     <span><%= pizza.item.name %></span>
                 </div>
-                <span class="flex-1"><%= pizza.quantity %> Pcs</span>
-                <span class="font-bold text-lg">$<%= pizza.item.price * pizza.quantity %></span>
+                <span class="flex-1"><%= pizza.qty %> Pcs</span>
+                <span class="font-bold text-lg">$<%= pizza.item.price * pizza.qty %></span>
                 </div>
             <% }%>
         </div>

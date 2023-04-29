@@ -55,6 +55,7 @@ app.use(flash())
 
 /* Assets */ 
 app.use(express.static('public'))
+app.use(express.json())
 
 /* Global Middleware*/
 
@@ -71,6 +72,7 @@ app.set('views', path.join(__dirname, '/resources/views'))
 app.set('view engine', 'ejs')
 
 require('./routes/web')(app)
+
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}.` )

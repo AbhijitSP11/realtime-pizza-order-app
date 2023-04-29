@@ -6,26 +6,28 @@ import Noty from 'noty'
 let addToCart = document.querySelectorAll('.add-to-cart')
 let cartCounter = document.querySelectorAll('#cartCounter')
 
-function updateCart(pizza){
+function updateCart(pizza) {
     axios.post('/update-cart', pizza).then(res => {
-        console.log(res)
+        console.log(res, 'checking response')
         cartCounter.innerText = res.data.totalQty
         new Noty({
             type: 'success',
             timeout: 1000,
-            text: 'Pizza added to your cart'
-        }).show()
-}).catch(err => new Noty({
-    type: 'error',
-    timeout: 1000,
-    text: 'Something went wrong'
-}).show())
-   
+            text: 'Item added to cart',
+        }).show();
+    }).catch(err => {
+        new Noty({
+            type: 'error',
+            timeout: 1000,
+            text: 'Something went wrong',
+        }).show();
+    })
 }
 
 addToCart.forEach((btn) => {
     btn.addEventListener('click', (e) => {
         let pizza = JSON.parse(btn.dataset.pizza)
+        console.log(pizza)
         updateCart(pizza)
     })
 })
