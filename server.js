@@ -7,6 +7,8 @@ const session = require('express-session')
 const flash = require('express-flash')
 const app = express();
 const MongoDbStore = require('connect-mongo'); //Class 
+const passport = require('passport') 
+const guest = require('./app/http/middlewares/guest')
 
 
 const PORT = process.env.PORT || 3300;
@@ -33,6 +35,8 @@ connection.once('open', () => {
   console.log('Database Connected...');
 });
 
+
+
 /* Session Store */
 
   /*Session Config --> Session  act as a middleware to the application so we'll use it with app.use
@@ -51,16 +55,25 @@ connection.once('open', () => {
   cookie : {maxAge: 1000 * 60 * 60 * 24}
 }))
 
+/* Passport config */
+
+const passportInit = require('./app/config/passport')
+passportInit(passport)
+app.use(passport.initialize())
+app.use(passport.session())
+
 app.use(flash())
 
 /* Assets */ 
 app.use(express.static('public'))
 app.use(express.json())
+app.use(express.urlencoded({extended: false}))
 
 /* Global Middleware*/
 
 app.use((req, res, next)=>{
   res.locals.session = req.session
+  res.locals.user = req.user
   next()
 })
 
